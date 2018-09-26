@@ -10,7 +10,7 @@ ROS Kinetic
 
 Gazebo-ROS compatibility packages
 
-Follow the system setup tutorial for [ARIAC 2018](wiki.ros.org/ariac/2018/Tutorials/SystemsSetup) (excluding the ARIAC package itself) for a detailed guide.
+Follow the system setup tutorial for [ARIAC 2018](http://wiki.ros.org/ariac/2018/Tutorials/SystemsSetup) (excluding the ARIAC package itself) for a detailed guide.
 
 ## Contents
 
