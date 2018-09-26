@@ -5,7 +5,9 @@ This package contains plugins and models for testing parallel gripper performanc
 ## Requirements
 
 Gazebo 8
+
 ROS Kinetic
+
 Gazebo-ROS compatibility packages
 
 Follow the system setup tutorial for [ARIAC 2018](wiki.ros.org/ariac/2018/Tutorials/SystemsSetup) (excluding the ARIAC package itself) for a detailed guide.
