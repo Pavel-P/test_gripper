@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version="1.6">
+<model name="fanuc_gripper">
+        <pose>0 0 0 0 0 0</pose>
+        <link name="fanuc_gripperbase">
+            <pose frame="">0 0 0 0 0 0</pose>
+            <!--inertial>
+                <pose frame="">0.012996 0.067257 -0.020009 0 -0 0</pose>
+                <mass>0.27006</mass>
+                <inertia>
+                    <ixx>1</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>1</iyy>
+                    <iyz>0</iyz>
+                    <izz>1</izz>
+                </inertia>
+            </inertial-->
+            <collision name="fanuc_gripperbase_collision">
+                <pose frame="">-0.013 -0.02 0 0 0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://fanuc_gripper/meshes/fanuc_gripperbase.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="fanuc_gripperbase_visual">
+                <pose frame="">-0.013 -0.02 0 0 0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://fanuc_gripper/meshes/fanuc_gripperbase.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <link name="fanuc_finger1">
+            <pose frame="">0.008 -0.013 -0.0318 1.5708 -0 -3.14159</pose>
+            <inertial>
+                <pose frame="">0.009219 0.002122 0.029068 0 -0 0</pose>
+                <mass>0.1</mass>
+                <inertia>
+                    <ixx>.1</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>.1</iyy>
+                    <iyz>0</iyz>
+                    <izz>.1</izz>
+                </inertia>
+            </inertial>
+            <collision name="fanuc_finger1_collision">
+                <pose frame="">0 0 0 0 0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://fanuc_gripper/meshes/fanuc_finger1.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="fanuc_finger1_visual">
+                <pose frame="">0 0 0 0 0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://fanuc_gripper/meshes/fanuc_finger1.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="fanuc_prism1" type="prismatic">
+            <child>fanuc_finger1</child>
+            <parent>fanuc_gripperbase</parent>
+            <axis>
+                <xyz>0 -1 0</xyz>
+                <limit>
+                    <lower>0</lower>
+                    <upper>0.008</upper>
+                    <effort>1000</effort>
+                    <velocity>1000</velocity>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+        <link name="fanuc_finger2">
+            <pose frame="">-0.008 0.013 -0.0318 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">0.009219 0.002122 0.029068 0 -0 0</pose>
+                <mass>0.1</mass>
+                <inertia>
+                    <ixx>.1</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>.1</iyy>
+                    <iyz>0</iyz>
+                    <izz>.1</izz>
+                </inertia>
+            </inertial>
+            <collision name="fanuc_finger2_collision">
+                <pose frame="">0 0 0 0 0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://fanuc_gripper/meshes/fanuc_finger2.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="fanuc_finger2_visual">
+                <pose frame="">0 0 0 0 0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://fanuc_gripper/meshes/fanuc_finger2.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="fanuc_prism2" type="prismatic">
+            <child>fanuc_finger2</child>
+            <parent>fanuc_gripperbase</parent>
+            <axis>
+                <xyz>0 1 0</xyz>
+                <limit>
+                    <lower>0</lower>
+                    <upper>0.008</upper>
+                    <effort>1000</effort>
+                    <velocity>1000</velocity>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+
+        <plugin name="BenchmarkGripperPlugin" filename="libBenchmarkGripperPlugin.so">
+            <grip_force_close>5</grip_force_close>
+            <enable_grip_on_start>true</enable_grip_on_start>
+            <joint1>fanuc_prism1</joint1>
+            <joint2>fanuc_prism2</joint2> 
+            <base_link>fanuc_gripperbase</base_link>
+            <grasped_object>metal_peg</grasped_object>
+            <grip_kp>10000</grip_kp>
+        </plugin>
+
+    </model>
+</sdf>

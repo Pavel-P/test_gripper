@@ -1,0 +1,8 @@
+# Gripper Acceleration Command
+
+#Linear and Angular accelerations
+geometry_msgs/Accel accel
+# Accel Duration
+float64 duration
+---
+bool success

@@ -1,0 +1,9 @@
+# Gripper Velocity Command
+
+# Linear Velocity Setting
+geometry_msgs/Vector3 linear
+# Angular Velocity Setting
+geometry_msgs/Vector3 angular
+
+---
+bool success
