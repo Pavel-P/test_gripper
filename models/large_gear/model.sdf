@@ -7,7 +7,7 @@
                 <geometry>
                     <mesh>
                         <scale>0.0254 0.0254 0.0254</scale>
-                        <uri>model://large_gear/meshes/large_gear_Centered_ZeroZmin.stl</uri>
+                        <uri>model://large_gear/meshes/large_gear.stl</uri>
                     </mesh>
                 </geometry>
                 <max_contacts>10</max_contacts>
