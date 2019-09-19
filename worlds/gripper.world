@@ -22,6 +22,16 @@
     <include>
       <uri>model://fanuc_gripper</uri>
       <pose>0 0 0.3 0 0 0</pose>
+
+      <plugin name="BenchmarkGripperPlugin" filename="libBenchmarkGripperPlugin.so">
+            <grip_force_close>5</grip_force_close>
+            <enable_grip_on_start>true</enable_grip_on_start>
+            <joint1>fanuc_prism1</joint1>
+            <joint2>fanuc_prism2</joint2> 
+            <base_link>fanuc_gripperbase</base_link>
+            <grasped_object>metal_peg</grasped_object>
+            <grip_kp>10000</grip_kp>
+        </plugin>
     </include>
 
     <include>
@@ -32,6 +42,15 @@
     <!--include>
       <uri>model://motoman_gripper</uri>
       <pose>0 0 0.5 0 0 0</pose>
+      <plugin name="BenchmarkGripperPlugin" filename="libBenchmarkGripperPlugin.so">
+            <grip_force_close>5</grip_force_close>
+            <enable_grip_on_start>true</enable_grip_on_start>
+            <joint1>motoman_prism_1</joint1>
+            <joint2>motoman_prism_2</joint2> 
+            <base_link>motoman_link_t</base_link>
+            <grasped_object>large_gear</grasped_object>
+            <grip_kp>10000</grip_kp>
+        </plugin>
     </include>
 
     <include>

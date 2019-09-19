@@ -19,6 +19,9 @@ namespace gazebo
     private: double grip_force_open;
     private: double grip_kp;
 
+    private: ignition::math::Vector3d linear_velocity;
+    private: ignition::math::Vector3d angular_velocity;
+
     private: ros::ServiceServer grip_service;
     private: ros::Publisher state_pub;
     private: std::unique_ptr<ros::NodeHandle> rosnode;
@@ -27,7 +30,7 @@ namespace gazebo
     {
       //Get SDF Params
 
-      grip_force_close = 50;
+      grip_force_close = 5;
       if (_sdf->HasElement("grip_force_close"))
         grip_force_close = _sdf->Get<double>("grip_force_close");
       
@@ -70,6 +73,11 @@ namespace gazebo
       }
 
       grip_enabled = false;
+
+      this->model->SetGravityMode(false);
+
+      linear_velocity = ignition::math::Vector3d(0,0,0);
+      angular_velocity = ignition::math::Vector3d(0,0,0);
       
       rosnode.reset(new ros::NodeHandle(robot_namespace));
       grip_service = rosnode->advertiseService(control_topic, &ParallelGripperPlugin::OnGripCommand, this);
@@ -87,18 +95,18 @@ namespace gazebo
       msg.data = grip_enabled;
       state_pub.publish(msg);
 
+
+      //Additional force modifier to ensure symmetrical finger positions
+      double force_modifier = (joint1->Position(0) - joint2->Position(0)) * grip_kp;
       if (grip_enabled) {
-
-        //Additional force modifier to ensure symmetrical finger positions
-        double force_modifier = (joint1->Position(0) - joint2->Position(0)) * grip_kp;
-
         joint1->SetForce(0, grip_force_close - force_modifier);
         joint2->SetForce(0, grip_force_close + force_modifier);
-
       } else {
-        joint1->SetForce(0, grip_force_open);
-        joint2->SetForce(0, grip_force_open);
+        joint1->SetForce(0, grip_force_open - force_modifier);
+        joint2->SetForce(0, grip_force_open + force_modifier);
       }
+      this->model->SetLinearVel(linear_velocity);
+      this->model->SetAngularVel(angular_velocity);
     }
 
     public: bool OnGripCommand(test_gripper::GripCommand::Request &_req,

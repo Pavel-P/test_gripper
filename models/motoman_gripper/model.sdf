@@ -148,14 +148,5 @@
       </axis>
     </joint>
 
-    <plugin name="BenchmarkGripperPlugin" filename="libBenchmarkGripperPlugin.so">
-            <grip_force_close>5</grip_force_close>
-            <enable_grip_on_start>true</enable_grip_on_start>
-            <joint1>motoman_prism_1</joint1>
-            <joint2>motoman_prism_2</joint2> 
-            <base_link>motoman_link_t</base_link>
-            <grasped_object>large_gear</grasped_object>
-            <grip_kp>10000</grip_kp>
-        </plugin>
   </model>
 </sdf>

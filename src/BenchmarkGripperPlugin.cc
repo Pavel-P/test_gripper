@@ -170,17 +170,15 @@ namespace gazebo
     // Called by the world update start event
     public: void OnUpdate()
     {
+      //Additional force modifier to ensure symmetrical finger positions
+      double force_modifier = (joint1->Position(0) - joint2->Position(0)) * grip_kp;
+
       if (grip_enabled) {
-
-        //Additional force modifier to ensure symmetrical finger positions
-        double force_modifier = (joint1->Position(0) - joint2->Position(0)) * grip_kp;
-
         joint1->SetForce(0, grip_force_close - force_modifier);
         joint2->SetForce(0, grip_force_close + force_modifier);
-
       } else {
-        joint1->SetForce(0, grip_force_open);
-        joint2->SetForce(0, grip_force_open);
+        joint1->SetForce(0, grip_force_open - force_modifier);
+        joint2->SetForce(0, grip_force_open + force_modifier);
       }      
       
       if (accel_command_active) {
@@ -311,6 +309,9 @@ namespace gazebo
       msg.pose.orientation.z = relative_grasp_pose.Rot().Z();
       
       grasp_pose_pub.publish(msg);
+
+      for(auto const& link : grasped_object->GetLinks())
+        gzdbg << "Link Name: " << link->GetName() << "Relative Force: " << link->RelativeForce() << std::endl;
     }
 
     // Pointer to the model

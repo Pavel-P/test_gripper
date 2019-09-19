@@ -137,16 +137,5 @@
                 <use_parent_model_frame>1</use_parent_model_frame>
             </axis>
         </joint>
-
-        <plugin name="BenchmarkGripperPlugin" filename="libBenchmarkGripperPlugin.so">
-            <grip_force_close>5</grip_force_close>
-            <enable_grip_on_start>true</enable_grip_on_start>
-            <joint1>fanuc_prism1</joint1>
-            <joint2>fanuc_prism2</joint2> 
-            <base_link>fanuc_gripperbase</base_link>
-            <grasped_object>metal_peg</grasped_object>
-            <grip_kp>10000</grip_kp>
-        </plugin>
-
     </model>
 </sdf>
